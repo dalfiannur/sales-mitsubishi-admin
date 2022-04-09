@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, toRefs, watch, reactive, onMounted } from 'vue'
+import { ref, toRefs, watch } from 'vue'
 import { UploadFileInfo, useDialog, useLoadingBar } from 'naive-ui'
 import usePostProduct from '../../../composable/usePostProduct';
 import { Product } from '../../../typings/Product';

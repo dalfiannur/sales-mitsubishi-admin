@@ -1,5 +1,4 @@
 import { onMounted, ref } from "vue"
-import { Paginate } from "../typings/Paginate"
 import { Product } from "../typings/Product"
 import useAxios from "./useAxios"
 

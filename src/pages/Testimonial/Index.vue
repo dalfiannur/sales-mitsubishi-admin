@@ -1,12 +1,11 @@
 <script setup lang="ts">
 import { useDialog } from "naive-ui";
-import { reactive } from "vue";
-import useDeleteProduct from "../../composable/useDeleteProduct";
-import useGetProducts from "../../composable/useGetProducts";
-import CreateProduct from "./components/CreateProduct.vue";
-import ViewProduct from "./components/ViewProduct.vue";
-import EditProduct from "./components/EditProduct.vue";
-import { Product } from "../../typings/Product";
+import { reactive, ref } from "vue";
+import CreateTestimonial from "./components/CreateTestimonial.vue";
+import ViewTestimonial from "./components/ViewTestimonial.vue";
+import EditTestimonial from "./components/EditTestimonial.vue";
+import useGetTestimonials from "../../composable/useGetTestimonials";
+import useDeleteTestimonial from "../../composable/useDeleteTestimonial";
 
 interface Modal {
   create: {
@@ -14,14 +13,13 @@ interface Modal {
   };
   view: {
     open: boolean;
-    item: Partial<Product>;
+    item: any;
   };
   edit: {
     open: boolean;
-    item: Product | null;
+    item: any;
   };
 }
-
 const modal = reactive<Modal>({
   create: {
     open: false,
@@ -32,22 +30,20 @@ const modal = reactive<Modal>({
   },
   edit: {
     open: false,
-    item: null,
+    item: {},
   },
 });
-
-const { data: products, refetch } = useGetProducts();
-const { mutate: deleteProduct, onSuccess: onDeleteSuccess } = useDeleteProduct();
+const currentPage = ref<number>(1);
+const { data: testimonials, pages, fetcher } = useGetTestimonials({
+  page: currentPage.value,
+  perPage: 5,
+});
+const { mutate: deleteTestimonial, onSuccess: onDeleteSuccess } = useDeleteTestimonial();
 const dialog = useDialog();
 
 const onViewButtonClick = (item: any) => {
   modal.view.open = true;
   modal.view.item = item;
-};
-
-const onEditButtonClick = (item: any) => {
-  modal.edit.open = true;
-  modal.edit.item = item;
 };
 
 const onButtonDeleteClick = (id: number) => {
@@ -57,31 +53,41 @@ const onButtonDeleteClick = (id: number) => {
     positiveText: "Yakin",
     negativeText: "Tidak",
     onPositiveClick: () => {
-      deleteProduct(id);
+      deleteTestimonial(id);
     },
   });
 };
 
+const onEditButtonClick = (item: any) => {
+  modal.edit.open = true;
+  modal.edit.item = item;
+};
+
 onDeleteSuccess(() => {
-  refetch();
+  fetcher({
+    page: currentPage.value,
+    perPage: 5,
+  });
 });
 </script>
 
 <template>
   <n-card>
-    <n-button type="primary" @click="modal.create.open = true">Tambah Produk</n-button>
+    <n-button type="primary" @click="modal.create.open = true">Tambah Testimoni</n-button>
     <n-table class="mt-30">
       <thead>
         <tr>
-          <th>Nama</th>
-          <th>Jumlah Tipe</th>
+          <th>Nama Pembeli</th>
+          <th>Pekerjaan Pembeli</th>
+          <th>Dibuat Pada</th>
           <th>#Aksi</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="item in products">
+        <tr v-for="item of testimonials">
           <td>{{ item.name }}</td>
-          <td>{{ item.types.length }}</td>
+          <td>{{ item.position }}</td>
+          <td>{{ item.created_at }}</td>
           <td class="w-100">
             <n-button-group>
               <n-button type="primary" @click="onViewButtonClick(item)">Lihat</n-button>
@@ -94,23 +100,31 @@ onDeleteSuccess(() => {
         </tr>
       </tbody>
     </n-table>
+    <n-space
+      justify="end"
+      :style="{
+        marginTop: '20px',
+      }"
+    >
+      <n-pagination v-model:page="currentPage" :page-count="pages" :page-slot="8" />
+    </n-space>
   </n-card>
 
-  <CreateProduct
+  <CreateTestimonial
     :open="modal.create.open"
     @close="modal.create.open = false"
-    @created="refetch"
+    @created="fetcher"
   />
-  <ViewProduct
+  <ViewTestimonial
     :open="modal.view.open"
     :item="modal.view.item"
     @close="modal.view.open = false"
   />
-  <EditProduct
+  <EditTestimonial
     :open="modal.edit.open"
     :item="modal.edit.item"
     @close="modal.edit.open = false"
-    @updated="refetch"
+    @updated="fetcher"
   />
 </template>
 

@@ -3,6 +3,7 @@ lockfileVersion: 5.3
 specifiers:
   '@quasar/extras': ^1.13.4
   '@quasar/vite-plugin': ^1.0.7
+  '@tinymce/tinymce-vue': ^4
   '@vicons/ionicons5': ^0.12.0
   '@vitejs/plugin-vue': ^2.2.0
   axios: ^0.26.1
@@ -12,6 +13,7 @@ specifiers:
   primevue: ^3.12.2
   quasar: ^2.6.2
   sass: 1.32.0
+  tinymce: ^6
   typescript: ^4.5.4
   unplugin-vue-components: ^0.18.5
   vfonts: ^0.0.3
@@ -23,6 +25,7 @@ specifiers:
 
 dependencies:
   '@quasar/extras': 1.13.4
+  '@tinymce/tinymce-vue': 4.0.7_vue@3.2.31
   '@vicons/ionicons5': 0.12.0
   axios: 0.26.1
   naive-ui: 2.27.0_vue@3.2.31
@@ -30,6 +33,7 @@ dependencies:
   primeicons: 5.0.0
   primevue: 3.12.2_primeicons@5.0.0+vue@3.2.31
   quasar: 2.6.2
+  tinymce: 6.0.1
   unplugin-vue-components: 0.18.5_vite@2.8.6+vue@3.2.31
   vfonts: 0.0.3
   vue: 3.2.31
@@ -152,6 +156,15 @@ packages:
     dependencies:
       estree-walker: 2.0.2
       picomatch: 2.3.1
+    dev: false
+
+  /@tinymce/tinymce-vue/4.0.7_vue@3.2.31:
+    resolution: {integrity: sha512-1esB8wGWrjPCY+rK8vy3QB1cxwXo7HLJWuNrcyPl6LOVR+QJjub0OiV/C+TUEsLN6OpCtRv+QnIqMC5vXz783Q==}
+    peerDependencies:
+      vue: ^3.0.0
+    dependencies:
+      tinymce: 5.10.3
+      vue: 3.2.31
     dev: false
 
   /@types/jest/27.4.1:
@@ -1325,6 +1338,14 @@ packages:
   /supports-preserve-symlinks-flag/1.0.0:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
     engines: {node: '>= 0.4'}
+
+  /tinymce/5.10.3:
+    resolution: {integrity: sha512-O59ssHNnujWvSk5Gt8hIGrdNCMKVWVQv9F8siAgLTRgTh0t3NDHrP1UlLtCxArUi9DPWZvlBeUz8D5fJTu7vnA==}
+    dev: false
+
+  /tinymce/6.0.1:
+    resolution: {integrity: sha512-+y3Lhm65GFs87gUfKuSWm2JA6ULHCC29trof4umIk2+TT+ql2poSsqsmRCSPN4elEo4EssIgEPFVRyPvrS/pDg==}
+    dev: false
 
   /to-fast-properties/2.0.0:
     resolution: {integrity: sha1-3F5pjL0HkmW8c+A3doGk5Og/YW4=}

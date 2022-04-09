@@ -9,3 +9,7 @@ export interface Product {
     images: string[];
     created_at: string
 }
+
+export interface ProductDto extends Omit<Product, "id" | "created_at"> {
+    
+}

@@ -11,7 +11,7 @@ export default function () {
     const mutate = (id: number) => {
         loading.start()
         isProcessing.value = true
-        axios.delete('/products/' + id)
+        axios.delete('/news/' + id)
             .then((response) => response.data)
             .then(() => {
                 success.value = true
